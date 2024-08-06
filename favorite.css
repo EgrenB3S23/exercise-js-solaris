@@ -1,55 +1,80 @@
 body {
-  background: radial-gradient(
-    circle at top left,
-    rgba(26, 43, 70, 1),
-    rgba(11, 26, 52, 1)
-  );
+	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1)), url("./assets/star-transparent.png");
+	background-repeat: repeat;
+	background-blend-mode: overlay;
+	background-size: contain;
+	color: white;
 
-  background-repeat: repeat;
-  background-blend-mode: lighten;
+	h1 {
+		font-family: "Orbitron", sans-serif;
+		text-align: center;
+		font-size: 3rem;
+	}
 }
-
-h1 {
-  color: white;
-}
-
 .favoriteContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  background: radial-gradient(
-    circle at top left,
-    rgba(26, 43, 70, 1),
-    rgba(11, 26, 52, 1)
-  );
-  background-image: url("./assets/star-transparent.png");
-  background-repeat: repeat;
-  background-blend-mode: lighten;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1));
+	background-image: url("./assets/star-transparent.png");
+	background-repeat: repeat;
+	background-blend-mode: lighten;
 }
 
 .planetCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 300px;
-  background-color: rgb(8, 8, 8);
-  border: 2px solid rgb(255, 255, 255);
-  border-radius: 20px;
-  margin-bottom: 4px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 300px;
+	background-color: rgb(8, 8, 8);
+	border: 2px solid rgb(255, 255, 255);
+	border-radius: 20px;
+	margin-bottom: 4px;
 }
 
 .planetCard h2 {
-  color: rgb(255, 255, 255);
-  align-self: center;
+	color: rgb(255, 255, 255);
+	align-self: center;
 }
 
 .symbol {
-  width: 50px;
+	width: 50px;
+	aspect-ratio: 1;
+	border-radius: 1000px;
+	word-wrap: break-word;
+	margin-bottom: 1rem;
+	align-self: center;
+}
 
-  aspect-ratio: 1;
-  border-radius: 1000px;
-  word-wrap: break-word;
+/*Nytt*/
+#favoritesContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 1rem;
+	margin: 1rem 5rem;
+}
 
-  align-self: center;
+.favoritePlanet {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 300px;
+	background-color: rgb(8, 8, 8);
+	border: 2px solid rgb(255, 255, 255);
+	border-radius: 20px;
+	margin-bottom: 4px;
+	text-decoration: none;
+	cursor: pointer;
+
+	h2 {
+		text-align: center;
+		font-family: "Secular One", sans-serif;
+		font-weight: 200;
+		color: white;
+	}
+}
+
+a:link {
+	text-decoration: none;
 }
