@@ -72,18 +72,13 @@ function writeToPage() {
 		});
 	});
 	addSaturnRing();
-}
-// flyttad till functions.js
-// function getPlanetAttribute(i, attribute) {
-// 	// example:
-// 	// getplanetAttributes(3, "moons");			// returns: ["Månen"]
-// 	// getplanetAttributes(3, "moons")[0];	// returns: "Månen"
-// 	// getPlanetAttribute(5, "moons"); 			// returns: [alla jupiters månar i array]
 
-// 	const storedData = JSON.parse(localStorage.getItem("bodies"));
-// 	const planetAttr = storedData[i][attribute];
-// 	return planetAttr;
-// }
+	const favoritesBtn = document.getElementById("toFavorites");
+	const buttonContainer = document.createElement("div");
+	buttonContainer.classList.add("center-button");
+	buttonContainer.appendChild(favoritesBtn);
+	solarSystem.insertAdjacentElement("afterend", buttonContainer);
+}
 
 //onmouseenter-function
 //https://www.w3schools.com/jsref/event_onmouseenter.asp
@@ -98,19 +93,22 @@ async function run() {
 	console.log(getPlanetAttribute(5, "moons")); // alla jupiters månar i array
 }
 
-const favoritesBtn = document.getElementById("toFavorites");
-favoritesBtn.addEventListener("click", () => {
-	window.location.href = "favorite.html"; //
-});
-
 function addSaturnRing() {
+	//probably temporary.
+	// return undefined; //temp
 	let saturnTemp = document.getElementById("saturnus");
-	console.log("Before:", saturnTemp);
-	console.log("Adding Saturn's ring!");
-	console.log("After:", saturnTemp);
-	let newItem = document.createElement("span");
+	// console.log("Adding Saturn's ring!");
+	// console.log("Before:", saturnTemp);
+	let newItem = document.createElement("div");
 	newItem.classList.add("ring");
 	document.getElementById("saturnus").appendChild(newItem);
+	// console.log("After:", saturnTemp);
 }
 
-run();
+document.addEventListener("DOMContentLoaded", () => {
+	run();
+	const favoritesBtn = document.getElementById("toFavorites");
+	favoritesBtn.addEventListener("click", () => {
+		window.location.href = "favorite.html"; //
+	});
+});

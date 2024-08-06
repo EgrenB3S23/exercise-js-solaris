@@ -41,6 +41,15 @@ function run() {
 	planetInfo.id = "planetInfo";
 	planetInfo.innerText = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "name").toUpperCase();
 	document.body.appendChild(planetInfo);
+
+	document.querySelector(".singleName").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "name").toUpperCase();
+	document.querySelector(".singleLatin").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "latinName").toUpperCase();
+	document.querySelector(".singleDescription").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "desc").toUpperCase();
+	document.querySelector(".singleRadius").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "circumference");
+	document.querySelector(".singleKm").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "distance");
+	document.querySelector(".singleMaxtemp").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp");
+	document.querySelector(".singleMintemp").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp");
+	document.querySelector(".singleMoons").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "moons");
 }
 
 // flyttad till functions.js
@@ -111,7 +120,7 @@ function nameToIndex(name) {
 	}
 }
 
-//funktion för att skriva ut planetens info i en tabell
+//funktion för att skriva ut planetens info
 function renderInfo() {}
 
 //let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
