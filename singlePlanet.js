@@ -1,26 +1,92 @@
+document.addEventListener("DOMContentLoaded", () => {
+	const addToFavoritesBtn = document.getElementById("addFavorite");
+
+	addToFavoritesBtn.addEventListener("click", () => {
+		const url = new URL(window.location.href);
+		const params = new URLSearchParams(url.search);
+		const planet = params.get("planet");
+		if (planet) {
+			addToFavorites(capitalizeWord(planet)); //Funktion från functions.js
+		}
+	});
+
+	const removeFromFavoritesBtn = document.getElementById("removeFavorite");
+	removeFromFavoritesBtn.addEventListener("click", () => {
+		const url = new URL(window.location.href);
+		const params = new URLSearchParams(url.search);
+		const planet = params.get("planet");
+		if (planet) {
+			removeFromFavorites(capitalizeWord(planet)); //Funktion från functions.js
+		}
+	});
+
+	const backBtn = document.getElementById("goBack");
+	backBtn.addEventListener("click", () => {
+		window.location.href = "index.html";
+	});
+
+	const favoritesBtn = document.getElementById("goToFavorites");
+	favoritesBtn.addEventListener("click", () => {
+		window.location.href = "favorite.html";
+	});
+	run();
+});
+
 function run() {
 	const url = new URL(window.location.href);
 	const params = new URLSearchParams(url.search);
 	const planet = params.get("planet");
 
 	const planetInfo = document.createElement("div");
-	planetInfo.classList.add("info");
-	planetInfo.id = "planetInfo";
-	planetInfo.innerText = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "name").toUpperCase();
+
 	document.body.appendChild(planetInfo);
+
+	document.querySelector(".singleName").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "name").toUpperCase();
+	document.querySelector(".singleLatin").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "latinName").toUpperCase();
+	document.querySelector(".singleDescription").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "desc");
+	document.querySelector(".singleRadius").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "circumference");
+	document.querySelector(".singleKm").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "distance");
+	document.querySelector(".singleMaxtemp").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp");
+	document.querySelector(".singleMintemp").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp");
+	document.querySelector(".singleMoons").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "moons");
+
+	setHalfCircleColor(capitalizeWord(planet));
 }
 
-function getPlanetAttribute(i, attribute) {
-	// example:
-	// getplanetAttributes(3, "moons");
-	// ...returns: ["Månen"]
-	// getplanetAttributes(3, "moons")[0];
-	// ...returns: "Månen"
-	console.log(`running getPlanetAttributes(${i}, ${attribute})`);
-	const storedData = JSON.parse(localStorage.getItem("bodies"));
-	const planetAttr = storedData[i][attribute];
-
-	return planetAttr;
+function setHalfCircleColor(planetName) {
+	const halfCircle = document.querySelector(".half-circle");
+	//todo: lägg till färger för corona/atmosfär/half-circle
+	switch (planetName) {
+		case "Solen":
+			halfCircle.style.backgroundColor = "#ffd028";
+			break;
+		case "Merkurius":
+			halfCircle.style.backgroundColor = "#8d8b85";
+			break;
+		case "Venus":
+			halfCircle.style.backgroundColor = "#e7cccb";
+			break;
+		case "Jorden":
+			halfCircle.style.backgroundColor = "#428ed5";
+			break;
+		case "Mars":
+			halfCircle.style.backgroundColor = "#f05f5f";
+			break;
+		case "Jupiter":
+			halfCircle.style.backgroundColor = "#e29468";
+			break;
+		case "Saturnus":
+			halfCircle.style.backgroundColor = "#c7aa72";
+			break;
+		case "Uranus":
+			halfCircle.style.backgroundColor = "#c9d4f1";
+			break;
+		case "Neptunus":
+			halfCircle.style.backgroundColor = "#7a92a7";
+			break;
+		default:
+			halfCircle.style.backgroundColor = "#428ed4";
+	}
 }
 
 function indexToName(index) {
@@ -29,98 +95,50 @@ function indexToName(index) {
 	switch (index) {
 		case 0:
 			return "Solen";
-			break;
 		case 1:
 			return "Merkurius";
-			break;
 		case 2:
 			return "Venus";
-			break;
 		case 3:
 			return "Jorden";
-			break;
 		case 4:
 			return "Mars";
-			break;
 		case 5:
 			return "Jupiter";
-			break;
 		case 6:
 			return "Saturnus";
-			break;
 		case 7:
 			return "Uranus";
-			break;
 		case 8:
 			return "Neptunus";
-			break;
-
 		default:
 			return undefined;
-			break;
 	}
 }
 
 function nameToIndex(name) {
 	// example:
-	// indexToName(2) returns "Venus"
+	// nameToIndex("Venus") returns 2
 	switch (name) {
 		case "Solen":
 			return 0;
-			break;
 		case "Merkurius":
 			return 1;
-			break;
 		case "Venus":
 			return 2;
-			break;
 		case "Jorden":
 			return 3;
-			break;
 		case "Mars":
 			return 4;
-			break;
 		case "Jupiter":
 			return 5;
-			break;
 		case "Saturnus":
 			return 6;
-			break;
 		case "Uranus":
 			return 7;
-			break;
 		case "Neptunus":
 			return 8;
-			break;
-
 		default:
 			return undefined;
-			break;
 	}
 }
-
-function capitalizeWord(word) {
-	if (word.length === 0) return word;
-	return word.charAt(0).toUpperCase() + word.slice(1);
-}
-
-function addToFavorites(planetName) {
-	let favorites = JSON.parse(localStorage.getItem("favorites")) || []; // JSON.parse omvandlar strängen tillbaka till en JavaScript-array. Kodraden ser till att favorites alltid är en array, antingen en existerande lista med favoriter eller en ny tom lista.
-	if (!favorites.includes(planetName)) {
-		favorites.push(planetName); //Lägger till planeten i slutet av arrayen
-		localStorage.setItem("favorites", JSON.stringify(favorites)); //Stringify omvandlar arrayen favorites tillbaka till en sträng, eftersom localStorage endast kan lagra strängar.
-		alert(`${planetName} har lagts till i din favoritlista`);
-	} else {
-		alert(`${planetName} finns redan i din favoritlista`);
-	}
-
-	const addToFavoritesBtn = document.getElementById("add-favorite");
-	addToFavoritesBtn.addEventListener("click", () => {
-		addToFavorites(planetInfo.name);
-	});
-}
-//let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-//localStorage.clear();
-
-run();
-addToFavorites();

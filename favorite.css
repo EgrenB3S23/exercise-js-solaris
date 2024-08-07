@@ -1,0 +1,85 @@
+body {
+	width: 100%;
+	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1)), url("./assets/star-transparent.png");
+	background-repeat: repeat;
+	background-blend-mode: overlay;
+	background-size: contain;
+	color: white;
+
+	h1 {
+		font-family: "Orbitron", sans-serif;
+		text-align: center;
+		font-size: 3rem;
+	}
+}
+
+.symbol {
+	width: 50px;
+	aspect-ratio: 1;
+	border-radius: 1000px;
+	margin-bottom: 1rem;
+	align-self: center;
+}
+
+#favoritesContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 5rem;
+	margin: 1rem 5rem;
+}
+
+.favoritePlanet {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1)), url("./assets/star-transparent.png");
+	background-size: contain;
+	border: 2px solid rgb(255, 255, 255);
+	border-radius: 20px;
+	margin-bottom: 4px;
+	text-decoration: none;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+
+	h2 {
+		text-align: center;
+		font-family: "Secular One", sans-serif;
+		font-weight: 200;
+		color: white;
+	}
+}
+
+.favoritePlanet:hover {
+	transform: scale(1.05);
+}
+
+.favoriteLink {
+	text-decoration: none;
+	display: block;
+}
+
+.homeBtnContainer {
+	margin-top: 1.5rem;
+	display: flex;
+	justify-content: center;
+}
+
+button {
+	margin: 1rem;
+	padding: 0.5rem 1rem;
+	border-radius: 15px;
+	cursor: pointer;
+	font-size: 20px;
+	font-family: "Secular One", sans-serif;
+	background: linear-gradient(145deg, #0b1a34, #0f2247);
+	color: white;
+	border: 0.2rem solid rgba(255, 255, 255, 0.4);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	text-decoration: none;
+	transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+	transform: scale(1.05);
+}

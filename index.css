@@ -6,20 +6,20 @@
 	--circumfMarsInitial: 21344;
 	--circumfJupiterInitial: 439264;
 	--circumfSaturnInitial: 378675;
-	--circumfUranusInitial: 16059;
-	--circumfNeptuneInitial: 1556;
+	--circumfUranusInitial: 160590;
+	--circumfNeptuneInitial: 155600;
 
-	--circumfSun: calc(var(--circumfSunInitial) * 0.1);
-	--circumfMercury: calc(var(--circumfMercuryInitial) * 1);
-	--circumfVenus: calc(var(--circumfVenusInitial) * 1);
-	--circumfEarth: calc(var(--circumfEarthInitial) * 1);
-	--circumfMars: calc(var(--circumfMarsInitial) * 1);
+	--circumfSun: calc(var(--circumfSunInitial) * 0.05);
+	--circumfMercury: calc(var(--circumfMercuryInitial));
+	--circumfVenus: calc(var(--circumfVenusInitial));
+	--circumfEarth: calc(var(--circumfEarthInitial));
+	--circumfMars: calc(var(--circumfMarsInitial));
 	--circumfJupiter: calc(var(--circumfJupiterInitial) / 3);
 	--circumfSaturn: calc(var(--circumfSaturnInitial) / 3);
 	--circumfUranus: calc(var(--circumfUranusInitial) / 3);
 	--circumfNeptune: calc(var(--circumfNeptuneInitial) / 3);
 
-	--sizeMultiplier: 0.001rem;
+	--sizeMultiplier: 0.00005rem;
 }
 
 * {
@@ -30,14 +30,15 @@
 body {
 	background: linear-gradient(to right, #0b1a34, #0f2247);
 	color: white;
-	margin-top: 5rem;
-}
+	/* margin-top: 5rem; tog bort för bättre visibility under arbete*/
 
-h1 {
-	color: white;
-	text-align: center;
-	font-family: "Orbitron", sans-serif;
-	font-size: 3rem;
+	h1 {
+		color: white;
+		text-align: center;
+		font-family: "Orbitron", sans-serif;
+		font-size: 3rem;
+		margin-top: 2rem;
+	}
 }
 
 .system {
@@ -46,20 +47,29 @@ h1 {
 	flex-direction: row;
 	justify-content: space-between;
 	margin: 0 5rem;
+	/* margin: 0 -1rem; */
 	align-items: center;
 	gap: 1rem;
+	/* position: relative; */
 }
 
-.planet {
+*.planet {
 	/* width: 5rem; */
-	min-width: 1rem;
+	min-width: 0.5rem;
 	aspect-ratio: 1;
 	border-radius: 1000px;
-	word-wrap: break-word;
+	/* word-wrap: break-word; */
 	font-size: 0.25rem;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 	text-align: center;
 	justify-items: center;
+	cursor: pointer;
 	/* font-size: 0rem; temp */
+	/* scale: calc(1 + [nåt i stil med 1vw]); */
+
+	--scale-factor: calc(1 +);
 }
 
 .planet-name {
@@ -68,43 +78,51 @@ h1 {
 	text-align: center;
 	position: absolute;
 	color: white;
-	font-size: 20px;
+	font-size: 1.25px;
 	margin-top: 10rem;
 }
 
 #solen {
 	background-color: #ffd028;
-	width: calc(var(--circumfSun) * var(--sizeMultiplier));
+	--sizeLocal: calc(var(--circumfSun) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 }
 
 #merkurius {
 	background-color: #8d8b85;
-	width: calc(var(--circumfMercury) * var(--sizeMultiplier));
+	/* width: calc(var(--circumfMercury) * var(--sizeMultiplier)); */
+	--sizeLocal: calc(var(--circumfMercury) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 }
 
 #venus {
 	background-color: #e7cccb;
-	width: calc(var(--circumfVenus) * var(--sizeMultiplier));
+	--sizeLocal: calc(var(--circumfVenus) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 }
 
 #jorden {
 	background-color: #428ed5;
-	width: calc(var(--circumfEarth) * var(--sizeMultiplier));
+	--sizeLocal: calc(var(--circumfEarth) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 }
 
 #mars {
 	background-color: #f05f5f;
-	width: calc(var(--circumfMars) * var(--sizeMultiplier));
+	--sizeLocal: calc(var(--circumfMars) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 }
 
 #jupiter {
 	background-color: #e29468;
-	width: calc(var(--circumfJupiter) * var(--sizeMultiplier));
+	--sizeLocal: calc(var(--circumfJupiter) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 }
 
 #saturnus {
 	background-color: #c7aa72;
-	width: calc(var(--circumfSaturn) * var(--sizeMultiplier));
+	--sizeLocal: calc(var(--circumfSaturn) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -113,12 +131,14 @@ h1 {
 
 #uranus {
 	background-color: #c9d4f1;
-	width: calc(var(--circumfUranus) * var(--sizeMultiplier));
+	--sizeLocal: calc(var(--circumfUranus) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 }
 
 #neptunus {
 	background-color: #7a92a7;
-	width: calc(var(--circumfNeptune) * var(--sizeMultiplier));
+	--sizeLocal: calc(var(--circumfNeptune) * var(--sizeMultiplier));
+	width: var(--sizeLocal);
 }
 
 #saturnus::before {
@@ -126,10 +146,93 @@ h1 {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: calc(var(--circumfSaturn) * var(--sizeMultiplier) * 0.1);
-	height: 0.25rem;
-	background-color: rgba(255, 255, 255, 0.4);
-	border-radius: 100%;
-	transform: translate(-50%, -50%) rotate(145deg);
+	width: 2%;
+	height: 200%;
+	border: 0.1rem solid rgba(255, 255, 255, 0.4);
+	border-radius: 50%;
+	transform: translate(-50%, -50%) rotate(50deg);
+	pointer-events: none;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+button {
+	margin: 3rem 0;
+	padding: 10px 20px;
+	font-size: 25px;
+	font-family: "Orbitron", sans-serif;
+	color: white;
+	background: linear-gradient(145deg, #0b1a34, #0f2247);
+	border: 2px solid #ffffff;
+	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+	border: 1px solid;
+	box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+	outline-color: rgba(255, 255, 255, 0);
+	outline-offset: 15px;
+	text-shadow: 1px 1px 2px #427388;
+}
+
+.center-button {
+	display: flex;
+	justify-content: center;
+}
+
+.moon {
+	/*
+	to spread the moons out, we generate some pseudorandom numbers based on --i-moon
+	(--i-moon ranges from 0 to n-1 where n is the number of moons belonging to the same planet. it is set inline by each ".moon" element.
+	--i-planet (which is set the same way, but for each planet) can be used as well to prevent Jupiter's moons from behaving the same as Saturn's moons, for example
+	
+	the exact formulas below aren't important. What's important is sin(--i-moon)
+
+	*/
+	--noise: calc(sin(calc(var(--i-moon) + calc(var(--i-planet) * 200)) * 200)); /* range: -1..1 */
+	--noise-rot: calc(var(--noise) * 10000deg); /* range:  */
+	--noise-scale: calc(1 + calc(calc(0.5 * sin(calc(var(--i-moon) * 1))))); /* range: 0.5 .. 1.5 */
+	--noise-red: calc(calc(sin(calc(var(--i-moon) * 100)) + 1) / 2); /* range: 0..1 */
+	--noise-green: calc(calc(sin(calc(var(--i-moon) * 160)) + 1) / 2); /* range: 0..1 */
+	--noise-blue: calc(calc(sin(calc(var(--i-moon) * 240)) + 1) / 2); /* range: 0..1 */
+	--red: calc(calc(var(--noise-red) * 40) + 60); /* range: 60..100 */
+	--green: calc(calc(var(--noise-green) * 30) + 50); /* range: 50..80 */
+	--blue: calc(calc(var(--noise-blue) * 30) + 50); /* range: 50..80 */
+
+	--orbit-ratio-skew: 3;
+	--orbit-time-multiplier: calc(calc(var(--orbit-ratio-skew) / calc(var(--orbit-ratio-skew) / calc(var(--orbit-ratio-skew) + var(--i-moon)))) * var(--orbit-ratio-skew));
+
+	width: 0.25rem;
+	aspect-ratio: 1;
+	border-radius: 10000px;
+	background-color: #777;
+	/* background-color: rgb(var(--noise-red), var(--noise-green), var(--noise-blue)); */
+
+	/*todo erik: this color is temporary*/
+	background-color: rgba(200, 20, 20, 1);
+	background-color: rgba(var(--red), var(--green), var(--blue), 1);
+
+	position: absolute;
+	/* display: flow-root; */
+
+	transform-origin: 50% 50%;
+	transform: translateY(0.25rem) translateY(calc(calc(var(--i-moon) * calc(0.125rem / var(--noise-scale))) + calc(var(--sizeLocal) * 0.5)));
+	scale: calc(var(--noise-scale));
+
+	animation: orbit calc(1s * var(--orbit-time-multiplier)) linear 0s infinite normal forwards;
+	animation-composition: add;
+}
+
+@keyframes orbit {
+	from {
+		/* transform: rotate(var(--noise)); */
+		rotate: var(--noise-rot);
+	}
+	to {
+		/* transform: rotate(var(--noise)); */
+		rotate: calc(var(--noise-rot) + 360deg);
+	}
 }

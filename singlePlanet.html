@@ -3,15 +3,38 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>Information om planet</title>
 		<link rel="stylesheet" href="singlePlanet.css" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Orbitron:wght@400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Secular+One&display=swap");
+		</style>
 	</head>
 	<body>
-		<!-- <img class="star-overlay" src="assets/star-transparent.png"></img> -->
-		<div class="star-overlay"></div>
-		<section class="single-planet">
-			<button id="add-favorite">Lägg till favorit</button>
+		<div class="half-circle"></div>
+		<div class="half-circle corona-1"></div>
+		<div class="half-circle corona-2"></div>
+		<div class="buttons">
+			<button id="addFavorite">Lägg till favorit</button>
+			<button id="removeFavorite">Ta bort favorit</button>
+			<button id="goToFavorites">Favoriter</button>
+			<button id="goBack">Gå tillbaka</button>
+		</div></div>
+		<section class="single-planet"></section>
+		<div class="planetInfo">
+		<section class="singleContainer">
+			<h1 class="singleName"></h1>
+			<h2 class="singleLatin"></h2>
+			<p class="singleDescription"></p>
+
+			<p class="singleRadius"></p>
+			<p class="singleKm"></p>
+			<p class="singleMaxtemp"></p>
+			<p class="singleMintemp"></p>
+			<p class="singleMoons"></p>
 		</section>
+	</div>
 		<script src="singlePlanet.js"></script>
+		<script src="functions.js"></script>
 	</body>
 </html>
