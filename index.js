@@ -47,17 +47,31 @@ function writeToPage() {
 	solarSystem.id = "solsystemet";
 	document.body.appendChild(solarSystem);
 
-	storedData.forEach((body) => {
-		let planetName = body.name; // Hämta planetens namn
+	storedData.forEach((celestial) => {
+		let planetName = celestial.name; // Hämta planetens namn
 		let newItem = document.createElement("div"); // Skapa en ny div för planeten
 		newItem.classList.add("planet");
-		newItem.id = body.name.toLowerCase();
+		newItem.id = celestial.name.toLowerCase();
+		newItem.style = `--i-planet: ${celestial.id}`;
 
 		// Lägg till en span för att visa planetens namn vid hover
 		let showName = document.createElement("span");
 		showName.classList.add("planet-name");
 		showName.textContent = planetName;
 		newItem.appendChild(showName);
+
+		//(add moons..) todo erik
+		let moonList = celestial.moons;
+		console.log("moonList", moonList);
+		for (let i = 0; i < moonList.length; i++) {
+			let newMoon = document.createElement("div");
+			newMoon.classList.add("moon");
+			newMoon.id = moonList[i].toLowerCase();
+			newMoon.style = `--i-moon: ${i};`; // index used to generate pseudorandom numbers with CSS".
+			console.log(`adding new moon ${moonList[i]} to planet ${celestial.name}`);
+			newItem.appendChild(newMoon);
+		}
+
 		solarSystem.appendChild(newItem); // Lägg till planeten i solsystemet
 
 		newItem.addEventListener("click", () => {
@@ -71,7 +85,6 @@ function writeToPage() {
 			document.querySelector("#solarisHeader").textContent = "Solaris Space Center"; // Dölj planetens namn när muspekaren lämnar
 		});
 	});
-	addSaturnRing();
 
 	const favoritesBtn = document.getElementById("toFavorites");
 	const buttonContainer = document.createElement("div");
@@ -80,11 +93,7 @@ function writeToPage() {
 	solarSystem.insertAdjacentElement("afterend", buttonContainer);
 }
 
-//onmouseenter-function
-//https://www.w3schools.com/jsref/event_onmouseenter.asp
-
 async function run() {
-	// localStorage.clear();
 	localStorage.removeItem("bodies");
 
 	await getApiData();
@@ -93,22 +102,10 @@ async function run() {
 	console.log(getPlanetAttribute(5, "moons")); // alla jupiters månar i array
 }
 
-function addSaturnRing() {
-	//probably temporary.
-	// return undefined; //temp
-	let saturnTemp = document.getElementById("saturnus");
-	// console.log("Adding Saturn's ring!");
-	// console.log("Before:", saturnTemp);
-	let newItem = document.createElement("div");
-	newItem.classList.add("ring");
-	document.getElementById("saturnus").appendChild(newItem);
-	// console.log("After:", saturnTemp);
-}
-
 document.addEventListener("DOMContentLoaded", () => {
 	run();
 	const favoritesBtn = document.getElementById("toFavorites");
 	favoritesBtn.addEventListener("click", () => {
-		window.location.href = "favorite.html"; //
+		window.location.href = "favorite.html";
 	});
 });

@@ -3,6 +3,10 @@ function displayFavorites() {
 	let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 	favorites.forEach((planetName) => {
+		const planetLink = document.createElement("a");
+		planetLink.href = `singlePlanet.html?planet=${planetName.toLowerCase()}`;
+		planetLink.classList.add("favoriteLink");
+
 		const planetDiv = document.createElement("div");
 		planetDiv.classList.add("favoritePlanet");
 
@@ -45,15 +49,16 @@ function displayFavorites() {
 		}
 		planetDiv.appendChild(symbol);
 
-		const planetLink = document.createElement("a");
-		//planetLink.href = "singlePlanet.html";
-		planetLink.href = `singlePlanet.html?planet=${planetName.toLowerCase()}`;
-		planetLink.appendChild(planetDiv); // Lägg till planetDiv i länken
-
+		planetLink.appendChild(planetDiv);
 		favoriteContainer.appendChild(planetLink);
 	});
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
 	displayFavorites();
+
+	const backBtn = document.getElementById("toHome");
+	backBtn.addEventListener("click", () => {
+		window.location.href = "index.html";
+	});
 });

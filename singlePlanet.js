@@ -1,34 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const addToFavoritesBtn = document.getElementById("addFavorite");
+
 	addToFavoritesBtn.addEventListener("click", () => {
 		const url = new URL(window.location.href);
 		const params = new URLSearchParams(url.search);
 		const planet = params.get("planet");
 		if (planet) {
-			addToFavorites(capitalizeWord(planet));
+			addToFavorites(capitalizeWord(planet)); //Funktion från functions.js
 		}
 	});
 
-	//todo erik (removefromfavorites button)
 	const removeFromFavoritesBtn = document.getElementById("removeFavorite");
 	removeFromFavoritesBtn.addEventListener("click", () => {
 		const url = new URL(window.location.href);
 		const params = new URLSearchParams(url.search);
 		const planet = params.get("planet");
 		if (planet) {
-			removeFromFavorites(capitalizeWord(planet));
+			removeFromFavorites(capitalizeWord(planet)); //Funktion från functions.js
 		}
 	});
 
 	const backBtn = document.getElementById("goBack");
 	backBtn.addEventListener("click", () => {
-		window.history.back(); //window.location.href = "index-html";
+		window.location.href = "index.html";
 	});
 
+	const favoritesBtn = document.getElementById("goToFavorites");
+	favoritesBtn.addEventListener("click", () => {
+		window.location.href = "favorite.html";
+	});
 	run();
 });
-
-// removeFromFavorites("Jupiter"); //todo erik
 
 function run() {
 	const url = new URL(window.location.href);
@@ -37,34 +39,55 @@ function run() {
 
 	const planetInfo = document.createElement("div");
 
-	planetInfo.classList.add("info");
-	planetInfo.id = "planetInfo";
-	planetInfo.innerText = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "name").toUpperCase();
 	document.body.appendChild(planetInfo);
 
 	document.querySelector(".singleName").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "name").toUpperCase();
 	document.querySelector(".singleLatin").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "latinName").toUpperCase();
-	document.querySelector(".singleDescription").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "desc").toUpperCase();
+	document.querySelector(".singleDescription").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "desc");
 	document.querySelector(".singleRadius").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "circumference");
 	document.querySelector(".singleKm").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "distance");
 	document.querySelector(".singleMaxtemp").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp");
 	document.querySelector(".singleMintemp").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp");
 	document.querySelector(".singleMoons").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "moons");
+
+	setHalfCircleColor(capitalizeWord(planet));
 }
 
-// flyttad till functions.js
-// function getPlanetAttribute(i, attribute) {
-// 	// example:
-// 	// getplanetAttributes(3, "moons");
-// 	// ...returns: ["Månen"]
-// 	// getplanetAttributes(3, "moons")[0];
-// 	// ...returns: "Månen"
-// 	console.log(`running getPlanetAttributes(${i}, ${attribute})`);
-// 	const storedData = JSON.parse(localStorage.getItem("bodies"));
-// 	const planetAttr = storedData[i][attribute];
-
-// 	return planetAttr;
-// }
+function setHalfCircleColor(planetName) {
+	const halfCircle = document.querySelector(".half-circle");
+	//todo: lägg till färger för corona/atmosfär/half-circle
+	switch (planetName) {
+		case "Solen":
+			halfCircle.style.backgroundColor = "#ffd028";
+			break;
+		case "Merkurius":
+			halfCircle.style.backgroundColor = "#8d8b85";
+			break;
+		case "Venus":
+			halfCircle.style.backgroundColor = "#e7cccb";
+			break;
+		case "Jorden":
+			halfCircle.style.backgroundColor = "#428ed5";
+			break;
+		case "Mars":
+			halfCircle.style.backgroundColor = "#f05f5f";
+			break;
+		case "Jupiter":
+			halfCircle.style.backgroundColor = "#e29468";
+			break;
+		case "Saturnus":
+			halfCircle.style.backgroundColor = "#c7aa72";
+			break;
+		case "Uranus":
+			halfCircle.style.backgroundColor = "#c9d4f1";
+			break;
+		case "Neptunus":
+			halfCircle.style.backgroundColor = "#7a92a7";
+			break;
+		default:
+			halfCircle.style.backgroundColor = "#428ed4";
+	}
+}
 
 function indexToName(index) {
 	// example:
@@ -119,11 +142,3 @@ function nameToIndex(name) {
 			return undefined;
 	}
 }
-
-//funktion för att skriva ut planetens info
-function renderInfo() {}
-
-//let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-//localStorage.clear();
-
-//addToFavorites();

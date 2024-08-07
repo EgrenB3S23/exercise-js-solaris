@@ -1,19 +1,19 @@
 * {
 	box-sizing: border-box;
 	margin: 0;
+	z-index: 4;
 }
 
 body {
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: auto;
 	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1)), url("./assets/star-transparent.png");
 	background-repeat: repeat;
 	background-blend-mode: lighten;
 	background-size: contain;
 	color: white;
-	/* background-size: 50rem; */
-
-	/* background: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 1) 90%); */
+	position: relative;
+	overflow: hidden;
 }
 
 #add-favorite {
@@ -21,32 +21,62 @@ body {
 }
 
 button {
+	margin: 1rem;
 	padding: 0.5rem 1rem;
-	border-radius: 10px;
+	border-radius: 15px;
 	cursor: pointer;
+	font-size: 15px;
+	font-family: "Secular One", sans-serif;
+	background: linear-gradient(145deg, #0b1a34, #0f2247);
+	color: white;
+	border: 0.2rem solid rgba(255, 255, 255, 0.4);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	text-decoration: none;
+	transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+button:hover {
+	text-shadow: 1px 1px 2px #427388;
+	transform: scale(1.05);
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+}
+.planetInfo {
+	display: flex;
+	justify-content: center;
+}
 .singleContainer {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 5fr 1fr 1fr 1fr;
 	gap: 10px;
 	border: solid white 1px;
 	max-width: 50vw;
+	max-height: 85vh;
 	align-self: center;
 	font-family: "Roboto Condensed", sans-serif;
 
 	.singleName {
 		font-size: 3rem;
 		font-family: "Secular One", sans-serif;
+		letter-spacing: 0.3rem;
+		font-weight: 400;
 	}
 
 	.singleLatin {
+		grid-row: 2;
 		color: #ffd029;
-		font-family: "Lato", sans-serif;
+		font-family: "Lora", serif;
+		font-weight: 200;
+		letter-spacing: 0.5rem;
 	}
 
 	.singleDescription {
+		grid-row: 3;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 	}
 
 	.singleRadius {
@@ -64,8 +94,27 @@ button {
 	.singleMoons {
 	}
 }
-/*Font planetnamn: Secular One
-Font latinskt namn: Lato
-Text: Roboto Condensed
-Omkrets, km fr solen, max-mintemp: Secular One
-*/
+
+.half-circle {
+	position: absolute;
+	left: -90vh;
+	top: 50vh; /* centrerad i höjdled */
+	transform: translate(-50%, -50%); /* gör att mittpunkten blir densamma oavsett storlek */
+	width: 200vh;
+	aspect-ratio: 1;
+	background-color: #428ed4;
+	border-radius: 50%;
+	z-index: 2;
+}
+
+.corona-1 {
+	left: -85vh;
+	background-color: rgba(66, 141, 212, 0.356);
+	z-index: 1;
+}
+
+.corona-2 {
+	left: -80vh;
+	background-color: #428dd42f;
+	z-index: 3;
+}
