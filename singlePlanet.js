@@ -44,49 +44,78 @@ function run() {
 	document.querySelector(".singleName").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "name").toUpperCase();
 	document.querySelector(".singleLatin").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "latinName").toUpperCase();
 	document.querySelector(".singleDescription").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "desc");
-	document.querySelector(".singleRadius").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "circumference");
-	document.querySelector(".singleKm").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "distance");
-	document.querySelector(".singleMaxtemp").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp");
-	document.querySelector(".singleMintemp").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp");
-	document.querySelector(".singleMoons").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "moons");
+	document.querySelector(".singleRadius").textContent = `${getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "circumference")} KM`;
+	document.querySelector(".singleRadius").textContent = `${formatNumber(getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "circumference"))} KM`;
+	document.querySelector(".singleKm").textContent = `${formatNumber(getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "distance"))} KM`;
+	document.querySelector(".singleMaxtemp").textContent = `${getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp").day} ºC`;
+	document.querySelector(".singleMintemp").textContent = `${getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "temp").night} ºC`;
+	document.querySelector(".singleMoons").textContent = getPlanetAttribute(nameToIndex(capitalizeWord(planet)), "moons").join(", ");
 
 	setHalfCircleColor(capitalizeWord(planet));
+
+	updateFavoriteButtons(capitalizeWord(planet));
 }
 
+//Formaterar avståndsformat för läsbarhet
+function formatNumber(number) {
+	return new Intl.NumberFormat("sv-SE").format(number);
+}
+//Funktion för att ändra bakgrundsfärgen på halvcirklarna. "switch-sats" för att välja rätt färg och funktionen hexToRGBA för att skapa semitransparenta färger. Specifik färgkod baserat på planetens namn.
 function setHalfCircleColor(planetName) {
 	const halfCircle = document.querySelector(".half-circle");
-	//todo: lägg till färger för corona/atmosfär/half-circle
+	const corona1 = document.querySelector(".corona-1");
+	const corona2 = document.querySelector(".corona-2");
+	let color;
 	switch (planetName) {
 		case "Solen":
-			halfCircle.style.backgroundColor = "#ffd028";
+			color = "#ffd028";
 			break;
 		case "Merkurius":
-			halfCircle.style.backgroundColor = "#8d8b85";
+			color = "#8d8b85";
 			break;
 		case "Venus":
-			halfCircle.style.backgroundColor = "#e7cccb";
+			color = "#e7cccb";
 			break;
 		case "Jorden":
-			halfCircle.style.backgroundColor = "#428ed5";
+			color = "#428ed5";
 			break;
 		case "Mars":
-			halfCircle.style.backgroundColor = "#f05f5f";
+			color = "#f05f5f";
 			break;
 		case "Jupiter":
-			halfCircle.style.backgroundColor = "#e29468";
+			color = "#e29468";
 			break;
 		case "Saturnus":
-			halfCircle.style.backgroundColor = "#c7aa72";
+			color = "#c7aa72";
 			break;
 		case "Uranus":
-			halfCircle.style.backgroundColor = "#c9d4f1";
+			color = "#c9d4f1";
 			break;
 		case "Neptunus":
-			halfCircle.style.backgroundColor = "#7a92a7";
+			color = "#7a92a7";
 			break;
 		default:
-			halfCircle.style.backgroundColor = "#428ed4";
+			color = "#428ed4"; // Standardfärg om planeten inte matchar någon av ovanstående
 	}
+
+	//Sätter bakgrundsfärgen på halvcirkeln direkt till den färg vi valde i switch-satsen. Funktionen hexToRGBA för att omvandla hex-färgen till en RGBA-färg med olika transparenser (0.35 och 0.15) för de yttre halvcirklarna
+	halfCircle.style.backgroundColor = color;
+	corona1.style.backgroundColor = hexToRGBA(color, 0.35);
+	corona2.style.backgroundColor = hexToRGBA(color, 0.15);
+}
+
+//Hjälpfunktion som omvandlar en hex-färgkod till en RGBA-färgkod med en specificerad transparens. Gör att de två yttre halvcirklarna kan ha semitransparenta versioner av huvudfärgen.
+function hexToRGBA(hex, alpha) {
+	// Om hex-koden börjar med #, ta bort det
+	hex = hex.replace(/^#/, "");
+
+	// Dela upp hex-koden i RGB-komponenter
+	let r = parseInt(hex.substring(0, 2), 16);
+	let g = parseInt(hex.substring(2, 4), 16);
+	let b = parseInt(hex.substring(4, 6), 16);
+
+	// Returnera RGB-komponenterna med alfa-kanal. Alpha är den transparensnivå vi skickade in som argument.
+	return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 function indexToName(index) {

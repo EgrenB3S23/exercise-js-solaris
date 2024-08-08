@@ -1,10 +1,14 @@
 body {
 	width: 100%;
-	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1)), url("./assets/star-transparent.png");
+	height: 100%;
+	background-color: #0f1f39;
+	background-image: url("./assets/star-transparent.png");
 	background-repeat: repeat;
-	background-blend-mode: overlay;
+	background-blend-mode: lighten;
 	background-size: contain;
 	color: white;
+	margin: 0;
+	position: relative;
 
 	h1 {
 		font-family: "Orbitron", sans-serif;
@@ -23,7 +27,7 @@ body {
 
 #favoritesContainer {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat(3, 1fr);
 	gap: 5rem;
 	margin: 1rem 5rem;
 }
@@ -32,8 +36,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 100%;
-	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1)), url("./assets/star-transparent.png");
+	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1));
 	background-size: contain;
 	border: 2px solid rgb(255, 255, 255);
 	border-radius: 20px;
@@ -51,7 +54,8 @@ body {
 }
 
 .favoritePlanet:hover {
-	transform: scale(1.05);
+	color: rgba(255, 255, 255, 1);
+	box-shadow: 0 5px 15px rgba(209, 205, 212, 0.562);
 }
 
 .favoriteLink {

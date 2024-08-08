@@ -28,9 +28,14 @@
 }
 
 body {
-	background: linear-gradient(to right, #0b1a34, #0f2247);
+	width: 100%;
+	height: 100vh;
+	background: linear-gradient(to left, #0b1a34, #11264e);
 	color: white;
-	/* margin-top: 5rem; tog bort för bättre visibility under arbete*/
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 
 	h1 {
 		color: white;
@@ -42,34 +47,28 @@ body {
 }
 
 .system {
-	height: 30rem;
+	--original-width-unitless: 800;
+	--original-height-unitless: 400;
+	min-width: calc(var(--original-width-unitless) * 1px);
+	aspect-ratio: 2 / 1;
+	width: 80%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin: 0 5rem;
-	/* margin: 0 -1rem; */
 	align-items: center;
-	gap: 1rem;
-	/* position: relative; */
+	gap: 16px;
 }
 
-*.planet {
-	/* width: 5rem; */
-	min-width: 0.5rem;
+.planet {
+	min-width: 1rem;
 	aspect-ratio: 1;
 	border-radius: 1000px;
-	/* word-wrap: break-word; */
-	font-size: 0.25rem;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	text-align: center;
 	justify-items: center;
 	cursor: pointer;
-	/* font-size: 0rem; temp */
-	/* scale: calc(1 + [nåt i stil med 1vw]); */
-
-	--scale-factor: calc(1 +);
 }
 
 .planet-name {
@@ -85,12 +84,11 @@ body {
 #solen {
 	background-color: #ffd028;
 	--sizeLocal: calc(var(--circumfSun) * var(--sizeMultiplier));
-	width: var(--sizeLocal);
+	min-width: var(--sizeLocal);
 }
 
 #merkurius {
 	background-color: #8d8b85;
-	/* width: calc(var(--circumfMercury) * var(--sizeMultiplier)); */
 	--sizeLocal: calc(var(--circumfMercury) * var(--sizeMultiplier));
 	width: var(--sizeLocal);
 }
@@ -117,6 +115,7 @@ body {
 	background-color: #e29468;
 	--sizeLocal: calc(var(--circumfJupiter) * var(--sizeMultiplier));
 	width: var(--sizeLocal);
+	margin: 0 2%; /* a little bit of extra room for all the moons */
 }
 
 #saturnus {
@@ -127,12 +126,14 @@ body {
 	align-items: center;
 	justify-content: center;
 	position: relative;
+	margin: 0 4%; /* a little bit of extra room for all the moons */
 }
 
 #uranus {
 	background-color: #c9d4f1;
 	--sizeLocal: calc(var(--circumfUranus) * var(--sizeMultiplier));
 	width: var(--sizeLocal);
+	margin: 0 1%; /* a little bit of extra room for all the moons */
 }
 
 #neptunus {
@@ -150,7 +151,7 @@ body {
 	height: 200%;
 	border: 0.1rem solid rgba(255, 255, 255, 0.4);
 	border-radius: 50%;
-	transform: translate(-50%, -50%) rotate(50deg);
+	transform: translate(-50%, -50%) rotate(60deg);
 	pointer-events: none;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -186,15 +187,15 @@ button:hover {
 .moon {
 	/*
 	to spread the moons out, we generate some pseudorandom numbers based on --i-moon
-	(--i-moon ranges from 0 to n-1 where n is the number of moons belonging to the same planet. it is set inline by each ".moon" element.
+	(--i-moon ranges from 0 to n-1 where n is the number of moons belonging to the same planet. It is set inline by each ".moon" element.
 	--i-planet (which is set the same way, but for each planet) can be used as well to prevent Jupiter's moons from behaving the same as Saturn's moons, for example
 	
-	the exact formulas below aren't important. What's important is sin(--i-moon)
-
+	the exact formulas below aren't all that important. What's important is sin(--i-moon)
 	*/
+
 	--noise: calc(sin(calc(var(--i-moon) + calc(var(--i-planet) * 200)) * 200)); /* range: -1..1 */
-	--noise-rot: calc(var(--noise) * 10000deg); /* range:  */
-	--noise-scale: calc(1 + calc(calc(0.5 * sin(calc(var(--i-moon) * 1))))); /* range: 0.5 .. 1.5 */
+	--noise-rot: calc(var(--noise) * 10000deg); /* range: many, many "laps" (1 lap = 360deg) removing or adding another zero really doesn't matter. Affects starting orbit position for each moon. */
+	--noise-scale: calc(1 + calc(calc(0.125 * sin(calc(var(--i-moon) * 1))))); /* range: 0.875 .. 1.125 */
 	--noise-red: calc(calc(sin(calc(var(--i-moon) * 100)) + 1) / 2); /* range: 0..1 */
 	--noise-green: calc(calc(sin(calc(var(--i-moon) * 160)) + 1) / 2); /* range: 0..1 */
 	--noise-blue: calc(calc(sin(calc(var(--i-moon) * 240)) + 1) / 2); /* range: 0..1 */
@@ -202,37 +203,30 @@ button:hover {
 	--green: calc(calc(var(--noise-green) * 30) + 50); /* range: 50..80 */
 	--blue: calc(calc(var(--noise-blue) * 30) + 50); /* range: 50..80 */
 
-	--orbit-ratio-skew: 3;
-	--orbit-time-multiplier: calc(calc(var(--orbit-ratio-skew) / calc(var(--orbit-ratio-skew) / calc(var(--orbit-ratio-skew) + var(--i-moon)))) * var(--orbit-ratio-skew));
+	--orbit-ratio-skew: 4; /* higher value: smaller difference in orbit speed between first closest and farthest moon */
+	--orbit-time-multiplier: calc(calc(var(--orbit-ratio-skew) + var(--i-moon)) / var(--orbit-ratio-skew)); /* = (i+skew)/skew */
 
-	width: 0.25rem;
-	aspect-ratio: 1;
-	border-radius: 10000px;
-	background-color: #777;
-	/* background-color: rgb(var(--noise-red), var(--noise-green), var(--noise-blue)); */
-
-	/*todo erik: this color is temporary*/
-	background-color: rgba(200, 20, 20, 1);
 	background-color: rgba(var(--red), var(--green), var(--blue), 1);
 
+	width: calc(0.35rem * var(--noise-scale));
+	aspect-ratio: 1;
+	border-radius: 10000px;
+
 	position: absolute;
-	/* display: flow-root; */
-
 	transform-origin: 50% 50%;
-	transform: translateY(0.25rem) translateY(calc(calc(var(--i-moon) * calc(0.125rem / var(--noise-scale))) + calc(var(--sizeLocal) * 0.5)));
-	scale: calc(var(--noise-scale));
 
-	animation: orbit calc(1s * var(--orbit-time-multiplier)) linear 0s infinite normal forwards;
+	/* make the moons orbit! */
+	transform: translateY(0.26rem) translateY(calc(calc(var(--i-moon) * calc(0.125rem / var(--noise-scale))) + calc(var(--sizeLocal) * 0.5)));
+	scale: calc(var(--noise-scale));
+	animation: orbit calc(5s * var(--orbit-time-multiplier)) linear 0s infinite normal forwards;
 	animation-composition: add;
 }
 
 @keyframes orbit {
 	from {
-		/* transform: rotate(var(--noise)); */
 		rotate: var(--noise-rot);
 	}
 	to {
-		/* transform: rotate(var(--noise)); */
 		rotate: calc(var(--noise-rot) + 360deg);
 	}
 }

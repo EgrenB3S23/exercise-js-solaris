@@ -6,14 +6,12 @@
 
 body {
 	width: 100%;
-	height: auto;
-	background: radial-gradient(circle at top left, rgba(26, 43, 70, 1), rgba(11, 26, 52, 1)), url("./assets/star-transparent.png");
+	height: 100vh;
+	background-color: #0f1f39;
+	background-image: url("./assets/star-transparent.png");
 	background-repeat: repeat;
-	background-blend-mode: lighten;
 	background-size: contain;
 	color: white;
-	position: relative;
-	overflow: hidden;
 }
 
 #add-favorite {
@@ -21,7 +19,7 @@ body {
 }
 
 button {
-	margin: 1rem;
+	margin: 2rem 1rem;
 	padding: 0.5rem 1rem;
 	border-radius: 15px;
 	cursor: pointer;
@@ -40,63 +38,118 @@ button:hover {
 	transform: scale(1.05);
 }
 
+button:disabled {
+	background: linear-gradient(145deg, #7e8085, #444546);
+}
+
 .buttons {
 	display: flex;
 	justify-content: center;
 }
+
 .planetInfo {
 	display: flex;
 	justify-content: center;
 }
+
 .singleContainer {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr 5fr 1fr 1fr 1fr;
-	gap: 10px;
-	border: solid white 1px;
-	max-width: 50vw;
+	grid-template-rows: repeat(6, 1fr);
+	gap: 0.5rem;
+	max-width: 40vw;
 	max-height: 85vh;
 	align-self: center;
 	font-family: "Roboto Condensed", sans-serif;
 
-	.singleName {
+	.article-singleName {
+		grid-row: 1;
 		font-size: 3rem;
 		font-family: "Secular One", sans-serif;
-		letter-spacing: 0.3rem;
+		letter-spacing: 0.4rem;
 		font-weight: 400;
+		margin: 0;
+		padding: 0.5rem 0;
+		font-size: 60px;
 	}
 
-	.singleLatin {
+	.article-singleLatin {
 		grid-row: 2;
 		color: #ffd029;
 		font-family: "Lora", serif;
-		font-weight: 200;
-		letter-spacing: 0.5rem;
+		font-weight: 400;
+		letter-spacing: 0.8rem;
+		font-size: 24px;
 	}
 
-	.singleDescription {
+	.article-singleDescription {
 		grid-row: 3;
+		grid-column: 1 / span 2;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+		font-size: 18px;
+		font-weight: 300;
+		p {
+			margin-bottom: 2rem;
+		}
+		.singleDescription {
+			line-height: 30.6px;
+		}
 	}
 
-	.singleRadius {
+	.article-singleRadius {
+		grid-row: 4;
+		padding-bottom: 1rem;
+		font-weight: 300;
+		h3 {
+			padding-top: 2rem;
+		}
 	}
 
-	.singleKm {
+	.article-singleKm {
+		grid-row: 4;
+		padding-bottom: 1rem;
+		font-weight: 300;
+		h3 {
+			padding-top: 2rem;
+		}
 	}
 
-	.singleMaxtemp {
+	.article-singleMaxtemp {
+		grid-row: 5;
+		padding-bottom: 2rem;
+		font-weight: 300;
 	}
 
-	.singleMintemp {
+	.article-singleMintemp {
+		grid-row: 5;
+		padding-bottom: 2rem;
+		font-weight: 300;
 	}
 
-	.singleMoons {
+	.article-singleMoons {
+		grid-row: 6;
+		grid-column: 1 / span 2;
+		border-top: 1px solid rgba(255, 255, 255, 0.2);
+		font-size: 18px;
+		font-weight: 300;
+		h3 {
+			padding-top: 2rem;
+			font-family: "Secular One", sans-serif;
+			font-weight: 400;
+		}
+		.singleMoons {
+			line-height: 30.6px;
+		}
 	}
+}
+
+h3 {
+	margin-bottom: 5px;
 }
 
 .half-circle {
 	position: absolute;
+	display: block;
 	left: -90vh;
 	top: 50vh; /* centrerad i höjdled */
 	transform: translate(-50%, -50%); /* gör att mittpunkten blir densamma oavsett storlek */
@@ -107,14 +160,24 @@ button:hover {
 	z-index: 2;
 }
 
+/*Yttre halvcirklar*/
+.corona-1,
+.corona-2 {
+	top: 50vh; /* Centrerad i höjdled */
+	transform: translate(-50%, -50%); /* Gör att mittpunkten blir densamma oavsett storlek */
+	width: 200vh;
+	aspect-ratio: 1;
+	border-radius: 50%;
+}
+
 .corona-1 {
 	left: -85vh;
-	background-color: rgba(66, 141, 212, 0.356);
+	background-color: rgba(66, 141, 212, 0.35); /* Justerad transparens */
 	z-index: 1;
 }
 
 .corona-2 {
 	left: -80vh;
-	background-color: #428dd42f;
-	z-index: 3;
+	background-color: rgba(66, 141, 212, 0.15); /* Justerad transparens */
+	z-index: 0;
 }

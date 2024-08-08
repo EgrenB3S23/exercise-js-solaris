@@ -6,7 +6,6 @@ async function fetchApiKey() {
 		method: "POST",
 	});
 	let data = await resp.json();
-	console.log("API Key:", data.key); // Logga API-nyckeln
 	return data.key;
 }
 
@@ -27,7 +26,6 @@ async function getApiData() {
 	try {
 		const apiKey = await fetchApiKey(); // Hämta API-nyckeln
 		const bodies = await getData(apiKey); // Hämta data om planeter med API-nyckeln
-		console.log("Bodies:", bodies);
 		localStorage.setItem("bodies", JSON.stringify(bodies)); // Spara data till localStorage
 
 		const storedData = JSON.parse(localStorage.getItem("bodies")); // Hämta sparad data från localStorage
@@ -62,13 +60,12 @@ function writeToPage() {
 
 		//(add moons..) todo erik
 		let moonList = celestial.moons;
-		console.log("moonList", moonList);
 		for (let i = 0; i < moonList.length; i++) {
 			let newMoon = document.createElement("div");
 			newMoon.classList.add("moon");
 			newMoon.id = moonList[i].toLowerCase();
 			newMoon.style = `--i-moon: ${i};`; // index used to generate pseudorandom numbers with CSS".
-			console.log(`adding new moon ${moonList[i]} to planet ${celestial.name}`);
+			// console.log(`adding new moon ${moonList[i]} to planet ${celestial.name}`);
 			newItem.appendChild(newMoon);
 		}
 
