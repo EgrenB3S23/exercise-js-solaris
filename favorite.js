@@ -1,7 +1,9 @@
 function displayFavorites() {
+	//Hämtar favoriter från localStorage
 	const favoriteContainer = document.getElementById("favoritesContainer");
 	let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
+	//Loopar igenom favoriterma från localStorage och utför nedanstående för alla
 	favorites.forEach((planetName) => {
 		const planetLink = document.createElement("a");
 		planetLink.href = `singlePlanet.html?planet=${planetName.toLowerCase()}`;

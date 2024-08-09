@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const addToFavoritesBtn = document.getElementById("addFavorite");
 
+	//Lägg till planet i favoriter
 	addToFavoritesBtn.addEventListener("click", () => {
 		const url = new URL(window.location.href);
 		const params = new URLSearchParams(url.search);
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
+	//Ta bort planet från favoriter
 	const removeFromFavoritesBtn = document.getElementById("removeFavorite");
 	removeFromFavoritesBtn.addEventListener("click", () => {
 		const url = new URL(window.location.href);
@@ -20,19 +22,22 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
+	//Knapp - gå tillbaka
 	const backBtn = document.getElementById("goBack");
 	backBtn.addEventListener("click", () => {
 		window.location.href = "index.html";
 	});
 
+	//Knapp - gå til favoriter
 	const favoritesBtn = document.getElementById("goToFavorites");
 	favoritesBtn.addEventListener("click", () => {
 		window.location.href = "favorite.html";
 	});
-	run();
+	loadData();
 });
 
-function run() {
+function loadData() {
+	//För att hämta planetens namn från URL
 	const url = new URL(window.location.href);
 	const params = new URLSearchParams(url.search);
 	const planet = params.get("planet");
@@ -56,10 +61,11 @@ function run() {
 	updateFavoriteButtons(capitalizeWord(planet));
 }
 
-//Formaterar avståndsformat för läsbarhet
+//Formaterar avståndsformat utefter standardformat
 function formatNumber(number) {
 	return new Intl.NumberFormat("sv-SE").format(number);
 }
+
 //Funktion för att ändra bakgrundsfärgen på halvcirklarna. "switch-sats" för att välja rätt färg och funktionen hexToRGBA för att skapa semitransparenta färger. Specifik färgkod baserat på planetens namn.
 function setHalfCircleColor(planetName) {
 	const halfCircle = document.querySelector(".half-circle");
@@ -98,7 +104,7 @@ function setHalfCircleColor(planetName) {
 			color = "#428ed4"; // Standardfärg om planeten inte matchar någon av ovanstående
 	}
 
-	//Sätter bakgrundsfärgen på halvcirkeln direkt till den färg vi valde i switch-satsen. Funktionen hexToRGBA för att omvandla hex-färgen till en RGBA-färg med olika transparenser (0.35 och 0.15) för de yttre halvcirklarna
+	//Sätter bakgrundsfärgen på halvcirkeln direkt till den färg som valdes i switch-satsen. Funktionen hexToRGBA för att omvandla hex-färgen till en RGBA-färg med olika transparenser (0.35 och 0.15) för de yttre halvcirklarna
 	halfCircle.style.backgroundColor = color;
 	corona1.style.backgroundColor = hexToRGBA(color, 0.35);
 	corona2.style.backgroundColor = hexToRGBA(color, 0.15);
@@ -118,36 +124,11 @@ function hexToRGBA(hex, alpha) {
 	return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-function indexToName(index) {
-	// example:
-	// indexToName(2) returns "Venus"
-	switch (index) {
-		case 0:
-			return "Solen";
-		case 1:
-			return "Merkurius";
-		case 2:
-			return "Venus";
-		case 3:
-			return "Jorden";
-		case 4:
-			return "Mars";
-		case 5:
-			return "Jupiter";
-		case 6:
-			return "Saturnus";
-		case 7:
-			return "Uranus";
-		case 8:
-			return "Neptunus";
-		default:
-			return undefined;
-	}
-}
-
+// Omvandlar ett planetnamn till motsvarande index.
 function nameToIndex(name) {
 	// example:
 	// nameToIndex("Venus") returns 2
+
 	switch (name) {
 		case "Solen":
 			return 0;

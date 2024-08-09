@@ -10,22 +10,9 @@ function capitalizeWord(word) {
 // getplanetAttributes(3, "moons")[0];  // returns: "Månen"
 // getPlanetAttribute(5, "moons");      // returns: ["Europa", "Ganymedes", "Io", "Callisto", "Amalthea", "Himalia"]
 function getPlanetAttribute(i, attribute) {
-	// console.log(`running getPlanetAttributes(${i}, ${attribute})`);
 	const storedData = JSON.parse(localStorage.getItem("bodies"));
 	const planetAttr = storedData[i][attribute];
 	return planetAttr;
-}
-
-// Funktion för att ta bort ett element från en array vid ett specifikt index och returnera en ny array med det elementet borttaget.
-// example:
-// removeElementAtIndex([a,b,c,d,e], 3);       // returns: [a,b,c,e]
-// removeElementAtIndex([a,b], 3);             // returns: [a,b]
-function removeElementAtIndex(arr, i) {
-	if (i < 0 || i >= arr.length) {
-		throw new Error("Index out of bounds.");
-	}
-
-	return arr.slice(0, i).concat(arr.slice(i + 1));
 }
 
 //Tar bort det första förekomsten av ett specifikt element från en array och returnerar en ny array med det elementet borttaget.
@@ -70,10 +57,9 @@ function removeFromFavorites(planetName) {
 	updateFavoriteButtons(capitalizeWord(planetName));
 }
 
+// Funktion som avgör vilken av knapparna "lägg till favorit" och "ta bort favorit" som ska vara disabled
+//("lägg till" ska vara disabled om den aktuella planeten redan finns i favoritlistan.)
 function updateFavoriteButtons(planetName) {
-	//
-	// avgör vilken av knapparna "lägg till favorit" och "ta bort favorit" som ska vara disabled ("lägg till" ska vara disabled om den aktuella planeten redan finns i favoritlistan.)
-
 	let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 	if (favorites.includes(planetName)) {
@@ -84,13 +70,3 @@ function updateFavoriteButtons(planetName) {
 		document.getElementById("removeFavorite").disabled = true;
 	}
 }
-
-function enableFavorites(planetName) {
-	document.getElementById("addFavorite").disabled = false;
-}
-
-/*
-		const url = new URL(window.location.href);
-		const params = new URLSearchParams(url.search);
-		const planet = params.get("planet");
-*/

@@ -52,20 +52,13 @@ function writeToPage() {
 		newItem.id = celestial.name.toLowerCase();
 		newItem.style = `--i-planet: ${celestial.id}`;
 
-		// Lägg till en span för att visa planetens namn vid hover
-		let showName = document.createElement("span");
-		showName.classList.add("planet-name");
-		showName.textContent = planetName;
-		newItem.appendChild(showName);
-
-		//(add moons..) todo erik
+		// Lägg till planetens månar.
 		let moonList = celestial.moons;
 		for (let i = 0; i < moonList.length; i++) {
 			let newMoon = document.createElement("div");
 			newMoon.classList.add("moon");
 			newMoon.id = moonList[i].toLowerCase();
 			newMoon.style = `--i-moon: ${i};`; // index used to generate pseudorandom numbers with CSS".
-			// console.log(`adding new moon ${moonList[i]} to planet ${celestial.name}`);
 			newItem.appendChild(newMoon);
 		}
 
@@ -90,17 +83,16 @@ function writeToPage() {
 	solarSystem.insertAdjacentElement("afterend", buttonContainer);
 }
 
-async function run() {
-	localStorage.removeItem("bodies");
+async function loadData() {
+	localStorage.removeItem("bodies"); // radera lokalt lagrade
 
 	await getApiData();
 	writeToPage();
-	console.log(getPlanetAttribute(5, "moons")[1]); // "ganymedes"
-	console.log(getPlanetAttribute(5, "moons")); // alla jupiters månar i array
 }
 
+// "JavaScript event that fires when the DOM is loaded, but before all page assets are loaded (CSS, images, etc.)."
 document.addEventListener("DOMContentLoaded", () => {
-	run();
+	loadData();
 	const favoritesBtn = document.getElementById("toFavorites");
 	favoritesBtn.addEventListener("click", () => {
 		window.location.href = "favorite.html";

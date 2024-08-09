@@ -1,4 +1,5 @@
 :root {
+	/* hardcodade värden för planeters omkrets. */
 	--circumfSunInitial: 4379000;
 	--circumfMercuryInitial: 15329;
 	--circumfVenusInitial: 38025;
@@ -9,6 +10,7 @@
 	--circumfUranusInitial: 160590;
 	--circumfNeptuneInitial: 155600;
 
+	/* finjustering... */
 	--circumfSun: calc(var(--circumfSunInitial) * 0.05);
 	--circumfMercury: calc(var(--circumfMercuryInitial));
 	--circumfVenus: calc(var(--circumfVenusInitial));
@@ -19,6 +21,7 @@
 	--circumfUranus: calc(var(--circumfUranusInitial) / 3);
 	--circumfNeptune: calc(var(--circumfNeptuneInitial) / 3);
 
+	/* och en enom(-t liten) multiplier där unit tas med */
 	--sizeMultiplier: 0.00005rem;
 }
 
@@ -29,12 +32,11 @@
 
 body {
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	background: linear-gradient(to left, #0b1a34, #11264e);
 	color: white;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	align-items: center;
 
 	h1 {
@@ -47,16 +49,14 @@ body {
 }
 
 .system {
-	--original-width-unitless: 800;
-	--original-height-unitless: 400;
-	min-width: calc(var(--original-width-unitless) * 1px);
-	aspect-ratio: 2 / 1;
+	min-width: 600px;
 	width: 80%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	gap: 16px;
+	margin-top: 12rem;
 }
 
 .planet {
@@ -69,16 +69,6 @@ body {
 	text-align: center;
 	justify-items: center;
 	cursor: pointer;
-}
-
-.planet-name {
-	display: none; /* Dölj namnet tills muspekaren hovrar */
-	font-family: "Orbitron", sans-serif;
-	text-align: center;
-	position: absolute;
-	color: white;
-	font-size: 1.25px;
-	margin-top: 10rem;
 }
 
 #solen {
@@ -115,7 +105,7 @@ body {
 	background-color: #e29468;
 	--sizeLocal: calc(var(--circumfJupiter) * var(--sizeMultiplier));
 	width: var(--sizeLocal);
-	margin: 0 2%; /* a little bit of extra room for all the moons */
+	margin: 0 2%; /* lite extra utrymme för månarna */
 }
 
 #saturnus {
@@ -126,14 +116,14 @@ body {
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	margin: 0 4%; /* a little bit of extra room for all the moons */
+	margin: 0 4%; /* lite extra utrymme för månarna */
 }
 
 #uranus {
 	background-color: #c9d4f1;
 	--sizeLocal: calc(var(--circumfUranus) * var(--sizeMultiplier));
 	width: var(--sizeLocal);
-	margin: 0 1%; /* a little bit of extra room for all the moons */
+	margin: 0 1%; /* lite extra utrymme för månarna */
 }
 
 #neptunus {
@@ -157,7 +147,7 @@ body {
 }
 
 button {
-	margin: 3rem 0;
+	margin-top: 10rem;
 	padding: 10px 20px;
 	font-size: 25px;
 	font-family: "Orbitron", sans-serif;
@@ -207,11 +197,9 @@ button:hover {
 	--orbit-time-multiplier: calc(calc(var(--orbit-ratio-skew) + var(--i-moon)) / var(--orbit-ratio-skew)); /* = (i+skew)/skew */
 
 	background-color: rgba(var(--red), var(--green), var(--blue), 1);
-
 	width: calc(0.35rem * var(--noise-scale));
 	aspect-ratio: 1;
 	border-radius: 10000px;
-
 	position: absolute;
 	transform-origin: 50% 50%;
 
